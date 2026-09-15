@@ -231,7 +231,7 @@ def main(argv=None) -> int:
 
     except KeyboardInterrupt:
         log(f"\ninterrupted. Job {job_name} may still be running in AWS.")
-        return 130
+        return 3
     except TimeoutError as exc:
         log(f"error: {exc}")
         return 1

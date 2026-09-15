@@ -17,15 +17,15 @@ Install the [AWS Command Line Utilities](https://docs.aws.amazon.com/cli/latest/
 aws configure sso
 ```
 
-- Choose a meaningful SSO session name
+- Choose a meaningful SSO profile name
 - The SSO Start URL will be the one you click to log into your AWS account
-- The region must be ca-central-1
+- The region should be ca-central-1
 - When asked for the SSO registration scopes, press enter
 
 After your SSO session is configured, run the following to verify you are logged in:
 
 ```bash
-export AWS_PROFILE=**NEW_PROFILE_NAME**
+export AWS_PROFILE=NEW_PROFILE_NAME
 aws sts get-caller-identity
 ```
 
@@ -53,7 +53,7 @@ usage: transcribe.py [-h] [-b BUCKET] [--prefix PREFIX] [--profile PROFILE]
 
 | Argument | Default | Description |
 | --- | --- | --- |
-| `audio` | — | Path to the local audio/video file. Required. |
+| `audio` | - | Path to the local audio/video file. Required. |
 | `-b`, `--bucket BUCKET` | `$TRANSCRIBE_BUCKET` | S3 bucket for the upload and the transcript. Required, via the flag or the environment variable. |
 | `--prefix PREFIX` | `transcribe` | Key prefix inside the bucket. |
 | `--profile PROFILE` | `$AWS_PROFILE` | AWS profile to use. Falls back to the default credential chain when unset. |
@@ -61,10 +61,10 @@ usage: transcribe.py [-h] [-b BUCKET] [--prefix PREFIX] [--profile PROFILE]
 | `-l`, `--language LANGUAGE` | `en-US` | BCP-47 language code, or `auto` to let Transcribe identify the language. |
 | `-s`, `--speakers [N]` | off | Enable speaker diarization, expecting up to `N` speakers. Bare `-s` means 2. |
 | `-o`, `--output PATH` | stdout | Write the transcript to this file instead of stdout. |
-| `--save-json PATH` | — | Also save the raw Transcribe JSON here. |
+| `--save-json PATH` | - | Also save the raw Transcribe JSON here. |
 | `--keep-media` | off | Leave the uploaded audio in S3 instead of deleting it. |
 | `--timeout TIMEOUT` | `3600` | Seconds to wait for the job before giving up. The job keeps running in AWS. |
-| `-h`, `--help` | — | Show the help text and exit. |
+| `-h`, `--help` | - | Show the help text and exit. |
 
 Recognized media extensions are `.amr`, `.flac`, `.m4a`, `.mp3`, `.mp4`,
 `.ogg`, `.wav`, and `.webm`; for anything else the format is left for
@@ -130,7 +130,7 @@ Without it, you get the single continuous transcript Transcribe returns.
 | `0` | Transcript produced. |
 | `1` | The job failed, timed out, or an AWS call errored. |
 | `2` | Bad invocation: the file does not exist, or no bucket was given. |
-| `130` | Interrupted with Ctrl-C. The job may still be running in AWS. |
+| `3` | Interrupted with Ctrl-C. The job may still be running in AWS. |
 
 ## License
 
